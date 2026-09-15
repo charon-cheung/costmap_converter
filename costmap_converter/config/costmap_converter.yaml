@@ -1,0 +1,29 @@
+# Automatically loaded by: ros2 run costmap_converter standalone_converter
+# Use --ros-args --params-file <path> with the same node sections to override defaults.
+# Changes to algorithm parameters take effect after restarting the converter.
+/**:
+  ros__parameters:
+    use_sim_time: true  # Set false when running without a simulation clock.
+
+/converter_costmap/converter_costmap:
+  ros__parameters:
+    static_layer:
+      map_topic: /navi/map/base/occupancy/dist
+
+/costmap_converter:
+  ros__parameters:
+    # CostmapToLinesDBSMCCH
+    converter_plugin: "costmap_converter::CostmapToLinesDBSMCCH"
+    obstacles_topic: "costmap_obstacles"
+    polygon_marker_topic: "costmap_polygon_markers"
+
+# Algorithm parameters belong to the internal plugin node.
+/costmap_converter/intra_node:
+  ros__parameters:
+    cluster_max_distance: 0.2              # DBSCAN neighbor distance [m].
+    cluster_min_pts: 2                    # Minimum number of neighbors.
+    cluster_max_pts: 1700                 # Maximum number of points per cluster.
+    convex_hull_min_pt_separation: 0.1     # Convex hull simplification tolerance [m].
+    support_pts_max_dist: 0.04              # Maximum support-point distance to a line [m].
+    support_pts_max_dist_inbetween: 0.1    # Maximum gap between support points [m].
+    min_support_pts: 5                   # Minimum support points, excluding endpoints.
